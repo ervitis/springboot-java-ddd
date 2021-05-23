@@ -1,0 +1,61 @@
+debug: true
+spring:
+  main:
+    banner-mode: off
+  application:
+    name: PetVaccineApplication
+
+  data:
+    mongodb:
+      host: ${MONGODB_HOST:localhost}
+      port: ${MONGODB_PORT:27017}
+      username: ${MONGODB_USERNAME}
+      password: ${MONGODB_PASSWORD}
+      database: ${MONGODB_DATABASE:clinic}
+      authentication-database: admin
+      auto-index-creation: true
+  quartz:
+    job-store-type: memory
+    auto-startup: false
+  datasource:
+    continue-on-error: true
+
+quartzSchedulerEnabled: ${QUARTZ_ENABLE:false}
+
+springfox:
+  documentation:
+    swagger-ui:
+      base-url: /doc
+
+
+opentracing:
+  jaeger:
+    service-name: PetVaccioneApplication
+    udp-sender:
+      host: localhost
+
+server:
+  port: 8080
+  error:
+    whitelabel:
+      enabled: false
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health,metrics,info,mappings
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+      show-details: always
+    metrics:
+      enabled: true
+    mappings:
+      enabled: true
+  health:
+    mongo:
+      enabled: true
