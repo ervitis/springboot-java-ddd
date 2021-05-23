@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/default")
 public interface IPokemonApiController {
 
-    @GetMapping(value = "/{entity}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/pokemon/{entity}", produces = MediaType.APPLICATION_JSON_VALUE)
     Pokemon getPokemon(@PathVariable String entity);
 }
