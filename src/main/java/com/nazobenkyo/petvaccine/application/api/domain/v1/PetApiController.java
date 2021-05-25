@@ -28,20 +28,20 @@ public class PetApiController implements IPetApiController<PetCreate> {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_DOCTOR')")
+    @PreAuthorize("userHasRole('ROLE_DOCTOR')")
     public PetCreate create(PetCreate request) {
         Pet petDto = this.petMapper.petRequestToPetDto(request);
         return this.petMapper.petDtoToPetCreate(this.petService.create(petDto));
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_DOCTOR')")
+    @PreAuthorize("userHasRole('ROLE_DOCTOR')")
     public PetCreate getPet(String emailOwner) {
         return this.petMapper.petDtoToPetCreate(this.petService.get(emailOwner));
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_DOCTOR')")
+    @PreAuthorize("userHasRole('ROLE_DOCTOR')")
     public PetCreate update(PetCreate request, String id) {
         Pet pet = this.petMapper.petRequestToPetDto(request);
         pet.setId(id);
@@ -49,13 +49,13 @@ public class PetApiController implements IPetApiController<PetCreate> {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_DOCTOR')")
+    @PreAuthorize("userHasRole('ROLE_DOCTOR')")
     public void delete(String id) {
         this.petService.delete(id);
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_DOCTOR')")
+    @PreAuthorize("userHasRole('ROLE_DOCTOR')")
     public Page<PetCreate> getPets(int page, int size) {
         return this.petService.getAll(PageRequest.of(page, size)).map(this.petMapper::petDtoToPetCreate);
     }

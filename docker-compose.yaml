@@ -10,7 +10,7 @@ services:
     environment:
       MONGODB_PASSWORD: ${MONGODB_PASSWORD}
       MONGODB_USERNAME: ${MONGODB_USERNAME}
-      MONGODB_HOST: mongo
+      MONGODB_HOST: ${MONGODB_HOST}
     container_name: app
     networks:
       - app-net

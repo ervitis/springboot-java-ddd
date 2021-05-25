@@ -14,7 +14,7 @@
     <name>pet-vaccine</name>
     <description>Pet clinic for vaccines</description>
     <properties>
-        <java.version>14</java.version>
+        <graalvm.version>21.1.0</graalvm.version>
         <spring-cloud.version>2020.0.2</spring-cloud.version>
         <springfox.version>3.0.0</springfox.version>
         <mapstruct.version>1.4.1.Final</mapstruct.version>

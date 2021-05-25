@@ -6,12 +6,12 @@
   - aggregations
   - left joins
   - criteria builder
+- Testing
 
 ### Resources
 
 ## TODO
 
-- Testing
 - Abstract scheduler api
 - Update readme with folder structure and architecture design
 
