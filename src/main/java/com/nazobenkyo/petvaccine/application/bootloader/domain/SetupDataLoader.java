@@ -1,7 +1,7 @@
-package com.nazobenkyo.petvaccine.application.listeners;
+package com.nazobenkyo.petvaccine.application.bootloader.domain;
 
-import com.nazobenkyo.petvaccine.application.api.security.privileges.PrivilegeConstants;
-import com.nazobenkyo.petvaccine.application.api.security.roles.RoleConstants;
+import com.nazobenkyo.petvaccine.application.api.security.domain.privileges.PrivilegeConstants;
+import com.nazobenkyo.petvaccine.application.api.security.domain.roles.RoleConstants;
 import com.nazobenkyo.petvaccine.domain.repository.PrivilegeRepository;
 import com.nazobenkyo.petvaccine.domain.repository.RoleRepository;
 import com.nazobenkyo.petvaccine.domain.repository.UserRepository;

@@ -3,7 +3,7 @@ package com.nazobenkyo.petvaccine.application.api.domain.v1;
 import com.nazobenkyo.petvaccine.application.api.domain.IPetApiController;
 import com.nazobenkyo.petvaccine.application.api.domain.v1.model.PetCreate;
 import com.nazobenkyo.petvaccine.domain.service.IPetService;
-import com.nazobenkyo.petvaccine.mapper.PetMapper;
+import com.nazobenkyo.petvaccine.domain.mapper.PetMapper;
 import com.nazobenkyo.petvaccine.model.Pet;
 import io.swagger.annotations.Api;
 import org.mapstruct.factory.Mappers;

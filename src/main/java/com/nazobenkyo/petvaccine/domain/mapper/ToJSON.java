@@ -1,4 +1,4 @@
-package com.nazobenkyo.petvaccine.mapper;
+package com.nazobenkyo.petvaccine.domain.mapper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

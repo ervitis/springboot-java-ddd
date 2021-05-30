@@ -1,4 +1,4 @@
-package com.nazobenkyo.petvaccine.application.api.security.privileges;
+package com.nazobenkyo.petvaccine.application.api.security.domain.privileges;
 
 import java.util.ArrayList;
 import java.util.Arrays;

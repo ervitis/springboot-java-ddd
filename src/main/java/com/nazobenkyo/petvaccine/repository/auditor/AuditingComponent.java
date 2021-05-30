@@ -1,4 +1,4 @@
-package com.nazobenkyo.petvaccine.repository;
+package com.nazobenkyo.petvaccine.repository.auditor;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.context.SecurityContextHolder;

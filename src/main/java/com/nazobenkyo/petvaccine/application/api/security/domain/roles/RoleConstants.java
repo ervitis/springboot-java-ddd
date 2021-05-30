@@ -1,4 +1,4 @@
-package com.nazobenkyo.petvaccine.application.api.security.roles;
+package com.nazobenkyo.petvaccine.application.api.security.domain.roles;
 
 public class RoleConstants {
     public static final String ROLE_ADMIN = "ROLE_ADMIN";

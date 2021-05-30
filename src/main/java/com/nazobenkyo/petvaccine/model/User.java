@@ -1,7 +1,6 @@
 package com.nazobenkyo.petvaccine.model;
 
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

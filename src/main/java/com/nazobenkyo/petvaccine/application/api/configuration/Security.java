@@ -5,7 +5,7 @@ import com.nazobenkyo.petvaccine.application.api.exception.handler.CustomAuthent
 import com.nazobenkyo.petvaccine.application.api.security.jwt.JWTAuthenticationFilter;
 import com.nazobenkyo.petvaccine.application.api.security.jwt.JWTAuthorizationFilter;
 import com.nazobenkyo.petvaccine.domain.repository.UserRepository;
-import com.nazobenkyo.petvaccine.domain.service.auth.ClinicUserDetailsService;
+import com.nazobenkyo.petvaccine.domain.service.userdetail.ClinicUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

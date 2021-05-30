@@ -1,5 +1,6 @@
 package com.nazobenkyo.petvaccine.application.api.security.permission;
 
+import com.nazobenkyo.petvaccine.application.api.security.permission.domain.JWTRoleSecurityExpressionRoot;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;

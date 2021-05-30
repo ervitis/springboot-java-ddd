@@ -129,9 +129,14 @@
             <version>2.11.4</version>
         </dependency>
         <dependency>
-            <groupId>com.novemberain</groupId>
-            <artifactId>quartz-mongodb</artifactId>
-            <version>2.2.0-rc2</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -205,10 +210,6 @@
             <id>central</id>
             <url>https://repo1.maven.org/maven2/</url>
             <layout>default</layout>
-        </repository>
-        <repository>
-            <id>michaelklishin</id>
-            <url>https://dl.bintray.com/michaelklishin/maven/</url>
         </repository>
     </repositories>
 

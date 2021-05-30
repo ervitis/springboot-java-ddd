@@ -4,7 +4,7 @@ import com.nazobenkyo.petvaccine.application.api.security.jwt.exception.JWTDecod
 import com.nazobenkyo.petvaccine.application.api.security.jwt.exception.JWTSubjectException;
 import com.nazobenkyo.petvaccine.application.api.security.jwt.jwtprovider.JWTModel;
 import com.nazobenkyo.petvaccine.application.api.security.jwt.jwtprovider.JWTProvider;
-import com.nazobenkyo.petvaccine.domain.service.auth.ClinicUserDetailsService;
+import com.nazobenkyo.petvaccine.domain.service.userdetail.ClinicUserDetailsService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

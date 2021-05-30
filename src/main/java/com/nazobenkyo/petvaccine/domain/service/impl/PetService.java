@@ -4,17 +4,15 @@ import com.nazobenkyo.petvaccine.application.api.exception.model.NotFoundExcepti
 import com.nazobenkyo.petvaccine.domain.repository.IPetRepository;
 import com.nazobenkyo.petvaccine.domain.service.IPetService;
 import com.nazobenkyo.petvaccine.model.Pet;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PetService implements IPetService {
-    private final IPetRepository petRepository;
-
-    public PetService(IPetRepository petRepository) {
-        this.petRepository = petRepository;
-    }
+    @Autowired
+    private IPetRepository petRepository;
 
     @Override
     public Pet create(Pet pet) {

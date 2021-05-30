@@ -1,4 +1,4 @@
-package com.nazobenkyo.petvaccine.domain.service.auth;
+package com.nazobenkyo.petvaccine.domain.service.userdetail;
 
 import com.nazobenkyo.petvaccine.application.api.exception.model.NotFoundException;
 import com.nazobenkyo.petvaccine.domain.repository.UserRepository;

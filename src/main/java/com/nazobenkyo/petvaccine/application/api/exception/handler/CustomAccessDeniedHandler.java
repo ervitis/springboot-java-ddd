@@ -2,7 +2,7 @@ package com.nazobenkyo.petvaccine.application.api.exception.handler;
 
 import com.nazobenkyo.petvaccine.application.api.exception.JSONExceptionFactory;
 import com.nazobenkyo.petvaccine.application.api.exception.model.ErrorType;
-import com.nazobenkyo.petvaccine.mapper.ToJSON;
+import com.nazobenkyo.petvaccine.domain.mapper.ToJSON;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;

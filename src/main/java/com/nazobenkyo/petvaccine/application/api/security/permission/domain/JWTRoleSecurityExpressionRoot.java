@@ -1,4 +1,4 @@
-package com.nazobenkyo.petvaccine.application.api.security.permission;
+package com.nazobenkyo.petvaccine.application.api.security.permission.domain;
 
 import com.nazobenkyo.petvaccine.application.api.security.jwt.JWTConstants;
 import com.nazobenkyo.petvaccine.application.api.security.jwt.jwtprovider.JWTModel;

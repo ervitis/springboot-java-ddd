@@ -6,7 +6,7 @@ import com.nazobenkyo.petvaccine.application.api.exception.model.NotFoundExcepti
 import com.nazobenkyo.petvaccine.application.api.security.jwt.jwtprovider.JWTModel;
 import com.nazobenkyo.petvaccine.application.api.security.jwt.jwtprovider.JWTProvider;
 import com.nazobenkyo.petvaccine.domain.repository.UserRepository;
-import com.nazobenkyo.petvaccine.domain.service.auth.ClinicUserDetailsService;
+import com.nazobenkyo.petvaccine.domain.service.userdetail.ClinicUserDetailsService;
 import com.nazobenkyo.petvaccine.model.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

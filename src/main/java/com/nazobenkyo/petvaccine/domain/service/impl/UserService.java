@@ -3,7 +3,7 @@ package com.nazobenkyo.petvaccine.domain.service.impl;
 import com.nazobenkyo.petvaccine.application.api.exception.model.NotFoundException;
 import com.nazobenkyo.petvaccine.application.api.exception.model.UserAlreadyExists;
 import com.nazobenkyo.petvaccine.application.api.exception.model.UserException;
-import com.nazobenkyo.petvaccine.application.api.security.roles.RoleConstants;
+import com.nazobenkyo.petvaccine.application.api.security.domain.roles.RoleConstants;
 import com.nazobenkyo.petvaccine.domain.repository.RoleRepository;
 import com.nazobenkyo.petvaccine.domain.repository.UserRepository;
 import com.nazobenkyo.petvaccine.domain.repository.extended.impl.UserRepositoryExtended;
