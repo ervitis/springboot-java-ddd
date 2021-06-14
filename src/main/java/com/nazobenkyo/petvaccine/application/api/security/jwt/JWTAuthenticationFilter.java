@@ -1,7 +1,6 @@
 package com.nazobenkyo.petvaccine.application.api.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nazobenkyo.petvaccine.application.api.exception.model.ForbiddenException;
 import com.nazobenkyo.petvaccine.application.api.exception.model.NotFoundException;
 import com.nazobenkyo.petvaccine.application.api.security.jwt.jwtprovider.JWTModel;
 import com.nazobenkyo.petvaccine.application.api.security.jwt.jwtprovider.JWTProvider;
@@ -9,11 +8,11 @@ import com.nazobenkyo.petvaccine.domain.repository.UserRepository;
 import com.nazobenkyo.petvaccine.domain.service.userdetail.ClinicUserDetailsService;
 import com.nazobenkyo.petvaccine.model.User;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -34,16 +33,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, ForbiddenException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        User authUser;
         try {
-            User authUser = new ObjectMapper().readValue(request.getInputStream(), User.class);
-            UserDetails userDetails = this.clinicUserDetailsService.loadUserByUsername(authUser.getEmail());
-            return this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDetails.getUsername(), authUser.getPassword(), userDetails.getAuthorities()));
+            authUser = new ObjectMapper().readValue(request.getInputStream(), User.class);
         } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        } catch (UsernameNotFoundException exception) {
-            throw new ForbiddenException();
+            throw new AuthenticationServiceException("wrong data");
         }
+        UserDetails userDetails = this.clinicUserDetailsService.loadUserByUsername(authUser.getEmail());
+        return this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDetails.getUsername(), authUser.getPassword(), userDetails.getAuthorities()));
     }
 
     @Override

@@ -1,9 +1,7 @@
 package com.nazobenkyo.petvaccine.application.api.exception.handler;
 
 import com.nazobenkyo.petvaccine.application.api.exception.ExceptionFactory;
-import com.nazobenkyo.petvaccine.application.api.exception.model.ErrorResponse;
-import com.nazobenkyo.petvaccine.application.api.exception.model.ErrorType;
-import com.nazobenkyo.petvaccine.application.api.exception.model.NotFoundException;
+import com.nazobenkyo.petvaccine.application.api.exception.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
@@ -32,13 +30,13 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return this.factory.createError(ErrorType.InternalServer);
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler({ConstraintViolationException.class, InvalidDataException.class})
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    public ErrorResponse constraintViolationExceptionHandler(RuntimeException ex, WebRequest request) {
+    public ErrorResponse badRequestExceptionHandler(RuntimeException ex, WebRequest request) {
         return this.factory.createError(ErrorType.NotValid);
     }
 
-    @ExceptionHandler({AccessDeniedException.class, AuthenticationException.class})
+    @ExceptionHandler({AccessDeniedException.class, AuthenticationException.class, ForbiddenException.class})
     @ResponseStatus(code = HttpStatus.FORBIDDEN)
     public ErrorResponse accessDeniedExceptionHandler(RuntimeException ex, WebRequest request) {
         return this.factory.createError(ErrorType.Forbidden);

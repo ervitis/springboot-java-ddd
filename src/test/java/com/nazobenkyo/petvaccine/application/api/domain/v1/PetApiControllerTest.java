@@ -30,7 +30,7 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -74,4 +74,76 @@ public class PetApiControllerTest {
         Assertions.assertNotNull(body);
         Assertions.assertEquals("123456", body.getId());
     }
+
+    @Test
+    public void whenCreatePetAlreadyExists_thenReturnsPetData() throws Exception {
+        PetCreate body = PetCreate.builder().name("doggy").ownerEmail("owner@test.com").type("Golden").build();
+        Pet pet = Pet.builder().name(body.getName()).ownerEmail(body.getOwnerEmail()).type(body.getType()).id("123456").build();
+
+        when(this.repository.findByOwnerEmail(any())).thenReturn(Optional.of(pet));
+
+        MvcResult result = mockMvc.perform(
+                post("/v1/pet")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + jwtAuth0Token.createToken("doctor@petvaccine.com",  PrivilegeConstants.DOCTOR_PRIVILEGES, Collections.singletonList(RoleConstants.ROLE_DOCTOR)).getJwtValue())
+                        .content(ToByteArray.fromObject(body))
+        )
+                .andExpect(status().isCreated())
+                .andReturn();
+        body = mapper.readValue(result.getResponse().getContentAsString(), PetCreate.class);
+        Assertions.assertNotNull(body);
+        Assertions.assertEquals("123456", body.getId());
+    }
+
+    @Test
+    public void whenCreatePetWithWrongToken_thenReturnsForbidden() throws Exception {
+        PetCreate body = PetCreate.builder().name("doggy").ownerEmail("owner@test.com").type("Golden").build();
+
+        mockMvc.perform(
+                post("/v1/pet")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + jwtAuth0Token.createToken("doctor@petvaccine.com",  PrivilegeConstants.DOCTOR_PRIVILEGES, Collections.singletonList(RoleConstants.ROLE_USER)).getJwtValue())
+                        .content(ToByteArray.fromObject(body))
+        )
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void whenAGetPet_thenReturnsPetData() throws Exception {
+        PetCreate body = PetCreate.builder().name("doggy").ownerEmail("owner@test.com").type("Golden").build();
+        Pet pet = Pet.builder().name(body.getName()).ownerEmail(body.getOwnerEmail()).type(body.getType()).id("123456").build();
+
+        when(this.repository.findByOwnerEmail(any())).thenReturn(Optional.of(pet));
+
+        MvcResult result = mockMvc.perform(
+                get("/v1/pet")
+                        .param("email", "owner@test.com")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Allow", "GET")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + jwtAuth0Token.createToken("doctor@petvaccine.com",  PrivilegeConstants.DOCTOR_PRIVILEGES, Collections.singletonList(RoleConstants.ROLE_DOCTOR)).getJwtValue())
+        )
+                .andExpect(status().isOk())
+                .andReturn();
+        body = mapper.readValue(result.getResponse().getContentAsString(), PetCreate.class);
+        Assertions.assertNotNull(body);
+        Assertions.assertEquals("123456", body.getId());
+    }
+
+    @Test
+    public void whenAGetPetThatDoesnotExists_thenReturnNotFound() throws Exception {
+        when(this.repository.findByOwnerEmail(any())).thenReturn(Optional.empty());
+
+        mockMvc.perform(
+                get("/v1/pet")
+                        .param("email", "owner@test.com")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + jwtAuth0Token.createToken("doctor@petvaccine.com",  PrivilegeConstants.DOCTOR_PRIVILEGES, Collections.singletonList(RoleConstants.ROLE_DOCTOR)).getJwtValue())
+        )
+                .andExpect(status().isNotFound());
+    }
+
 }

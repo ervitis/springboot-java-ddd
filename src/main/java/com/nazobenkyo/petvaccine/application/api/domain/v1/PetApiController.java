@@ -36,8 +36,8 @@ public class PetApiController implements IPetApiController<PetCreate> {
 
     @Override
     @PreAuthorize("userHasRole('ROLE_DOCTOR')")
-    public PetCreate getPet(String emailOwner) {
-        return this.petMapper.petDtoToPetCreate(this.petService.get(emailOwner));
+    public PetCreate getPet(String email) {
+        return this.petMapper.petDtoToPetCreate(this.petService.get(email));
     }
 
     @Override

@@ -27,14 +27,14 @@ public interface IPetApiController<PetCreate> {
 
     @ApiOperation(value = "Get a pet by owner email")
     @ApiResponses({
-            @ApiResponse(code = 201, message = "Pet retrieved"),
+            @ApiResponse(code = 200, message = "Pet retrieved"),
             @ApiResponse(code = 400, message = "Bad request", response = ErrorResponse.class),
             @ApiResponse(code = 401, message = "Not authenticated", response = ErrorResponse.class),
             @ApiResponse(code = 403, message = "Forbidden", response = ErrorResponse.class),
             @ApiResponse(code = 404, message = "Not Found", response = ErrorResponse.class)
     })
-    @GetMapping(value = "/pet/{emailOwner}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE, params = "id")
-    PetCreate getPet(@PathVariable("emailOwner") String emailOwner);
+    @GetMapping(value = "/pet", produces = MediaType.APPLICATION_JSON_VALUE)
+    PetCreate getPet(@RequestParam String email);
 
     @ApiOperation(value = "Update a pet using its ID")
     @ApiResponses({

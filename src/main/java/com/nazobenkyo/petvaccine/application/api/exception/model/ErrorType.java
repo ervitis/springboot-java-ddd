@@ -7,6 +7,7 @@ public enum ErrorType {
     InternalServer(HttpStatus.INTERNAL_SERVER_ERROR.value(), "something internal happened"),
     NotValid(HttpStatus.BAD_REQUEST.value(), "input value data not valid"),
     UnsupportedMedia(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(), "unsupported media value"),
+    Unauthorized(HttpStatus.UNAUTHORIZED.value(), "unauthorized user"),
     Forbidden(HttpStatus.FORBIDDEN.value(), "forbidden for this user");
 
     private int code;

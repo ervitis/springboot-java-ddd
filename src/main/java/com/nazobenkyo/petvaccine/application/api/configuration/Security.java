@@ -2,6 +2,7 @@ package com.nazobenkyo.petvaccine.application.api.configuration;
 
 import com.nazobenkyo.petvaccine.application.api.exception.handler.CustomAccessDeniedHandler;
 import com.nazobenkyo.petvaccine.application.api.exception.handler.CustomAuthenticationEntrypoint;
+import com.nazobenkyo.petvaccine.application.api.exception.handler.CustomAuthenticationFailureHandler;
 import com.nazobenkyo.petvaccine.application.api.security.jwt.JWTAuthenticationFilter;
 import com.nazobenkyo.petvaccine.application.api.security.jwt.JWTAuthorizationFilter;
 import com.nazobenkyo.petvaccine.domain.repository.UserRepository;
@@ -9,7 +10,6 @@ import com.nazobenkyo.petvaccine.domain.service.userdetail.ClinicUserDetailsServ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -30,6 +31,10 @@ public class Security extends WebSecurityConfigurerAdapter {
 
     private final ClinicUserDetailsService clinicUserDetailsService;
     private final UserRepository userRepository;
+
+
+    @Autowired
+    private CustomAuthenticationFailureHandler authenticationFailureHandler;
 
     @Autowired
     public Security(ClinicUserDetailsService clinicUserDetailsService, UserRepository userRepository) {
@@ -45,8 +50,8 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests()
                     .antMatchers("/actuator/**").permitAll()
                     .antMatchers("/doc/**", "/v2/api-docs/**").permitAll()
-                    .antMatchers(HttpMethod.POST, "/login").permitAll()
                     .anyRequest().authenticated()
+                .and().formLogin().loginProcessingUrl("/login").permitAll()
                 .and()
                     .addFilter(new JWTAuthenticationFilter(this.clinicUserDetailsService, authenticationManager(), this.userRepository))
                     .addFilter(new JWTAuthorizationFilter(this.clinicUserDetailsService, authenticationManager()))
@@ -77,6 +82,11 @@ public class Security extends WebSecurityConfigurerAdapter {
         authProvider.setUserDetailsService(this.clinicUserDetailsService);
         authProvider.setPasswordEncoder(encoder());
         return authProvider;
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
     }
 
     @Bean
